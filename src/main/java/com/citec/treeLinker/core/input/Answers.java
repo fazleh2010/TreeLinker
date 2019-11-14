@@ -36,10 +36,4 @@ public class Answers {
         return result;
     }
 
-    public static String getAnswer(Answers answerUnit) {
-        Result result = answerUnit.getResult();
-        System.out.println("result:" + result);
-        return null;
-    }
-
 }

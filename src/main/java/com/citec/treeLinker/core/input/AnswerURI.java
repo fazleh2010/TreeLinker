@@ -7,14 +7,16 @@ package com.citec.treeLinker.core.input;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
  * @author elahi
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class URI {
+public class AnswerURI {
 
     @JsonProperty("type")
     public String type;
@@ -33,6 +35,25 @@ public class URI {
 
     public String getValue() {
         return value;
+    }
+
+    public static List<String> getAnswer(List<Answers> answerUnits) {
+        List<String> uriList = new ArrayList<String>();
+
+        for (Answers answerUnit : answerUnits) {
+            Result result = answerUnit.getResult();
+            List<Binding> bindings = result.getBinding();
+            for (Binding binding : bindings) {
+                HashMap<String, String> uris = binding.getUri();
+                if (!uris.isEmpty()) {
+                    if (uris.containsKey("value")) {
+                        uriList.add(uris.get("value"));
+                    }
+                }
+            }
+
+        }
+        return uriList;
     }
 
 }
