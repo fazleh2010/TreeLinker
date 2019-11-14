@@ -15,7 +15,7 @@ import java.util.List;
  * @author elahi
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Questions {
+public class DataUnit {
 
     @JsonProperty("id")
     public String id;
@@ -39,11 +39,6 @@ public class Questions {
 
     @JsonProperty("answers")
     public List<Answers> answers;
-
-    @Override
-    public String toString() {
-        return "Questions{" + "id=" + id + ", answertype=" + answertype + ", aggregation=" + aggregation + ", onlydbo=" + onlydbo + ", hybrid=" + hybrid + ", question=" + question + ", query=" + query + ", answers=" + answers + '}';
-    }
 
     public String getId() {
         return id;
@@ -75,6 +70,11 @@ public class Questions {
 
     public List<Answers> getAnswers() {
         return answers;
+    }
+
+    @Override
+    public String toString() {
+        return "DataUnit{" + "id=" + id + ", answertype=" + answertype + ", aggregation=" + aggregation + ", onlydbo=" + onlydbo + ", hybrid=" + hybrid + ", question=" + question + ", query=" + query + ", answers=" + answers + '}';
     }
 
 }

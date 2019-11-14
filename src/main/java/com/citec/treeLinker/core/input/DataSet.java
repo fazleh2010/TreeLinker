@@ -5,10 +5,7 @@
  */
 package com.citec.treeLinker.core.input;
 
-import com.citec.treeLinker.core.input.Questions;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +19,7 @@ public class DataSet {
     @JsonProperty("dataset")
     public HashMap<String, String> dataset = new HashMap<String, String>();
     @JsonProperty("questions")
-    public List<Questions> questions = new ArrayList<Questions>();
+    public List<DataUnit> questions = new ArrayList<DataUnit>();
 
     @Override
     public String toString() {
@@ -33,7 +30,7 @@ public class DataSet {
         return dataset;
     }
 
-    public List<Questions> getQuestions() {
+    public List<DataUnit> getQuestions() {
         return questions;
     }
 

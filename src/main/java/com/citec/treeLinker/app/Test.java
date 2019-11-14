@@ -1,10 +1,14 @@
 package com.citec.treeLinker.app;
 
+import com.citec.treeLinker.api.InformationFinder;
+import com.citec.treeLinker.core.input.Answers;
+import com.citec.treeLinker.core.input.Binding;
 import com.citec.treeLinker.core.tree.Result;
 import com.citec.treeLinker.core.tree.TreeLexicon;
-import com.citec.treeLinker.api.InformationFinder;
 import com.citec.treeLinker.core.input.JsonReader;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.citec.treeLinker.core.input.Question;
+import com.citec.treeLinker.core.input.DataUnit;
+import com.citec.treeLinker.core.input.URI;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -15,7 +19,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -30,21 +33,51 @@ public class Test {
     public static void main(String[] args) throws IOException {
         inputFromJsonFile();
         //inputFromTextFile();
-        
+
     }
 
     private static void inputFromJsonFile() throws IOException {
         try {
-            InputStream inputStream =new FileInputStream(INPUT_LOCATION+File.separator+INPUT_JSON);
-            JsonReader informationFinder = new JsonReader(inputStream);
-            
-           
+            InputStream inputStream = new FileInputStream(INPUT_LOCATION + File.separator + INPUT_JSON);
+            InformationFinder informationFinder = new JsonReader(inputStream);
+            List<DataUnit> dataUnits = informationFinder.getDataUnit();
+            for (DataUnit dataUnit: dataUnits) {
+                System.out.println("****************************************");
+                String id = dataUnit.getId();
+                System.out.println("id:" + id);
+                List<Question> questionUnit = dataUnit.getQuestion();
+                for (Question question: questionUnit){
+                    String questionString =question.getString();
+                    System.out.println("question:" + questionString);
+                }
+                List<Answers> answerUnit = dataUnit.getAnswers();
+                for (Answers answers: answerUnit){
+                     String answerString=Answers.getAnswer(answers);
+                }
+                
+                /*if(!questionUnit.isEmpty()){
+                    String questionString = questionUnit.get(i).getString();
+                List<Answers> answerUnit = dataUnit.getAnswers();
+                List<Binding> binding= answerUnit.get(i).getResult().getBinding();
+                System.out.println("****************************************");
+                System.out.println("id:" + id);
+                System.out.println("questionString:" + questionString);
+                if(!binding.isEmpty())
+                System.out.println("binding:" + binding.toString());
+                }*/
+                
+                    /*for (String uriUnit : uri.keySet()) {
+                        if (uriUnit.contains("value")) {
+                            System.out.println("uri:" + uri.get(uriUnit));
+                        }
+                    }*/
+                
+                
+            }
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
 
         //createTree();
     }
@@ -52,7 +85,7 @@ public class Test {
     private static void inputFromTextFile() throws FileNotFoundException, IOException {
         // Open the file that is the first
         // command line parameter
-        FileInputStream fstream = new FileInputStream(INPUT_LOCATION+File.separator+INPUT_TEXT);
+        FileInputStream fstream = new FileInputStream(INPUT_LOCATION + File.separator + INPUT_TEXT);
         // Get the object of DataInputStream
         DataInputStream in = new DataInputStream(fstream);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -115,4 +148,6 @@ public class Test {
             System.out.println(result);
         }
     }
+
+    
 }

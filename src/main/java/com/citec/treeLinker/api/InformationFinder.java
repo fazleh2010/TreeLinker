@@ -5,11 +5,14 @@
  */
 package com.citec.treeLinker.api;
 
+import com.citec.treeLinker.core.input.DataUnit;
+import java.util.List;
+
 /**
  *
  * @author elahi
  */
 public interface InformationFinder {
 
-    public String getQuestions();
+     public List<DataUnit> getDataUnit();
 }
