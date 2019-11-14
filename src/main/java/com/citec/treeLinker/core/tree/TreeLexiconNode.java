@@ -1,4 +1,6 @@
-package com.citec.treeLinker.core;
+package com.citec.treeLinker.core.tree;
+import com.citec.treeLinker.core.tree.Result;
+import com.citec.treeLinker.core.tree.Levenshtein;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

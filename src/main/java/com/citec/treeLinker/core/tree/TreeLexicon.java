@@ -1,4 +1,5 @@
-package com.citec.treeLinker.core;
+package com.citec.treeLinker.core.tree;
+import com.citec.treeLinker.core.tree.Result;
 import java.util.ArrayList;
 import java.util.List;
 

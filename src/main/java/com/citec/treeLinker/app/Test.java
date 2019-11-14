@@ -1,7 +1,7 @@
 package com.citec.treeLinker.app;
 
-import com.citec.treeLinker.core.Result;
-import com.citec.treeLinker.core.TreeLexicon;
+import com.citec.treeLinker.core.tree.Result;
+import com.citec.treeLinker.core.tree.TreeLexicon;
 import com.citec.treeLinker.api.InformationFinder;
 import com.citec.treeLinker.core.input.JsonReader;
 import com.fasterxml.jackson.databind.ObjectMapper;

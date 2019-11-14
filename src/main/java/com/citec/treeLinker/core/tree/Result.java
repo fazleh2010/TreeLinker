@@ -1,4 +1,4 @@
-package com.citec.treeLinker.core;
+package com.citec.treeLinker.core.tree;
 
 
 public class Result {
