@@ -35,10 +35,10 @@ public class TreeLexicon {
 
         for (int i = 0; i < tokenized_array.length; i++) {
             List<Result> results=Root.lookup(tokenized_array, i, threshold);
-            for (Result result: results){
+            /*for (Result result: results){
                  System.out.println("...............");
                 System.out.println(result.toString());
-            }
+            }*/
             list.addAll(results);
         }
 

@@ -11,8 +11,11 @@ public class Test {
     private static String INPUT_TEXT = "entityLinking_1.tsv";
 
     public static void main(String[] args) throws IOException {
-        CreateTree createTreeFromJsonFile = new CreateTree(INPUT_LOCATION + File.separator + INPUT_JSON);
-        //CreateTree createTreeFromTextFile = new CreateTree(INPUT_LOCATION + File.separator + INPUT_TEXT);
+        CreateTree createTree;
+        // If Json file then 
+        createTree = new CreateTree(INPUT_LOCATION + File.separator + INPUT_JSON,1);
+        // If text file then
+        //createTree = new CreateTree(INPUT_LOCATION + File.separator + INPUT_TEXT,2);
 
     }
 

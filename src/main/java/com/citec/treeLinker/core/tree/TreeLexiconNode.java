@@ -21,13 +21,13 @@ public class TreeLexiconNode {
         List<Result> list = new ArrayList<Result>();
         TreeLexiconNode child;
 
-        System.out.print(map+"\n");
+        //System.out.print(map+"\n");
         if (i < tokenized_candidate.length) {
-         System.out.print("Checking: "+tokenized_candidate[i]+"\n");
+         //System.out.print("Checking: "+tokenized_candidate[i]+"\n");
 
             if (children.containsKey(tokenized_candidate[i])) {
 
-                System.out.print("Yes, it contains: "+tokenized_candidate[i]+"\n");
+                //System.out.print("Yes, it contains: "+tokenized_candidate[i]+"\n");
                 child = children.get(tokenized_candidate[i]);
                  this.print(children);
 
@@ -53,8 +53,8 @@ public class TreeLexiconNode {
             // System.out.print("Checking: "+tokenized_candidate[i]+"\n");
 
             for (String entry : children.keySet()) {
-                System.out.println("entry:"+entry);
-                System.out.println("tokenized_candidate:"+tokenized_candidate[i]);
+                //System.out.println("entry:"+entry);
+                //System.out.println("tokenized_candidate:"+tokenized_candidate[i]);
                 normLD = Levenshtein.normalizedDistance(entry, tokenized_candidate[i]);
 
                 if (normLD < threshold) {
