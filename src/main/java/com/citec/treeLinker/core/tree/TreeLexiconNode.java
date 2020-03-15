@@ -1,5 +1,4 @@
 package com.citec.treeLinker.core.tree;
-import com.citec.treeLinker.core.tree.Result;
 import com.citec.treeLinker.core.tree.Levenshtein;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,16 +8,16 @@ public class TreeLexiconNode {
 
     HashMap<String, TreeLexiconNode> children;
 
-    HashMap<String, Result> map;
+    HashMap<String, ResultQA> map;
 
     public TreeLexiconNode() {
         children = new HashMap<String, TreeLexiconNode>();
-        map = new HashMap<String, Result>();
+        map = new HashMap<String, ResultQA>();
     }
 
-    public List<Result> lookup(String[] tokenized_candidate, int i) {
+    public List<ResultQA> lookup(String[] tokenized_candidate, int i) {
 
-        List<Result> list = new ArrayList<Result>();
+        List<ResultQA> list = new ArrayList<ResultQA>();
         TreeLexiconNode child;
 
         //System.out.print(map+"\n");
@@ -36,14 +35,14 @@ public class TreeLexiconNode {
         }
 
         for (String entry : map.keySet()) {
-            list.add(new Result(entry, map.get(entry).getUri(), map.get(entry).getType()));
+            list.add(new ResultQA(entry, map.get(entry).getUri(), map.get(entry).getType()));
         }
 
         return list;
     }
 
-    public List<Result> lookup(String[] tokenized_candidate, int i, double threshold) {
-        List<Result> list = new ArrayList<Result>();
+    public List<ResultQA> lookup(String[] tokenized_candidate, int i, double threshold) {
+        List<ResultQA> list = new ArrayList<ResultQA>();
         TreeLexiconNode child;
 
         // System.out.print(map+"\n");
@@ -68,7 +67,7 @@ public class TreeLexiconNode {
         }
 
         for (String entry : map.keySet()) {
-            list.add(new Result(entry, map.get(entry).getUri(), map.get(entry).getType()));
+            list.add(new ResultQA(entry, map.get(entry).getUri(), map.get(entry).getType()));
         }
 
         return list;
@@ -92,7 +91,7 @@ public class TreeLexiconNode {
 
             }
             if (tokenized_entry.length == i) {
-                map.put(entry, new Result(entry, uri, type));
+                map.put(entry, new ResultQA(entry, uri, type));
                 // System.out.print("Inserting: "+entry+" "+uri+"\n");
             }
 

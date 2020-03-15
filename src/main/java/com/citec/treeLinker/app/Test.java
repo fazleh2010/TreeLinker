@@ -1,6 +1,7 @@
 package com.citec.treeLinker.app;
 
 import com.citec.treeLinker.core.tree.CreateTree;
+import com.citec.treeLinker.core.tree.ResultQA;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -18,9 +19,9 @@ public class Test {
          //createTree = new CreateTree(INPUT_LOCATION + File.separator + INPUT_ALL_JSON,1);
          //CreateTree createTree1 = new CreateTree(search);
          createTree = new CreateTree(INPUT_LOCATION + File.separator + INPUT_TEXT,2);
-         List<com.citec.treeLinker.core.tree.Result>results=createTree.getResults("Gabriel Filmtheater");
+         List<ResultQA>results=createTree.getResults("Gabriel Filmtheater");
          
-         for (com.citec.treeLinker.core.tree.Result result : results) {
+         for (ResultQA result : results) {
             System.out.println(result);
         }
        

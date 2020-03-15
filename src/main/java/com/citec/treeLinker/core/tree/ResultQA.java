@@ -1,7 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.citec.treeLinker.core.tree;
 
-
-public class Result {
+/**
+ *
+ * @author elahi
+ */
+public class ResultQA {
 
     String match;
 
@@ -9,7 +17,7 @@ public class Result {
 
     String type;
 
-    public Result(String match, String uri, String type) {
+    public ResultQA(String match, String uri, String type) {
         this.match = match;
         this.uri = uri;
         this.type = type;

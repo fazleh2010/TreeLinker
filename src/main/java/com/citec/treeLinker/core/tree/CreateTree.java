@@ -145,51 +145,51 @@ public class CreateTree {
 
      private void checkResultWhenTextFile() {
         System.out.print("Testing...Gabriel Filmtheater\n");
-        List<com.citec.treeLinker.core.tree.Result> results = treeLexicon.lookup("Gabriel Filmtheater");
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        List<ResultQA> results = treeLexicon.lookup("Gabriel Filmtheater");
+        for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Gabriel Frlmtheater\n");
         results = treeLexicon.lookup("Gabriel Frlmtheater");
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Gabriel Frlmtheater\n");
         results = treeLexicon.lookup("Gabriel Frlmtheater", 0.1);
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Ich liebe Gabriel Frlmtheater und Odeon\n");
         results = treeLexicon.lookup("Ich liebe Gabriel Frlmtheater und Odeon", 0.1);
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        for (ResultQA result : results) {
             System.out.println(result);
         }
     }
 
     private void checkResultWhenJsonFile(TreeLexicon lexicon) {
         System.out.print("Testing...Who is 8th president of US?\n");
-        List<com.citec.treeLinker.core.tree.Result> results = lexicon.lookup("Who is 8th president of US?");
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        List<ResultQA> results = lexicon.lookup("Who is 8th president of US?");
+        for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Where is the most deep point in the ocean?\n");
         results = lexicon.lookup("Where is the most deep point in the ocean?");
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Who is the novelist of the work a song of ice and fire?\n");
         results = lexicon.lookup("the novelist of the work a song of ice", 0.1);
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Where is the birthplace of Goethe?\n");
         results = lexicon.lookup("birthplace of Goethe", 0.1);
-        for (com.citec.treeLinker.core.tree.Result result : results) {
+        for (ResultQA result : results) {
             System.out.println(result);
         }
     }
 
-    public List<Result> getResults(String questionString) {
+    public List<ResultQA> getResults(String questionString) {
         return  treeLexicon.lookup(questionString);
     }
 
