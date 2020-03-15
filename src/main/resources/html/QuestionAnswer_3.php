@@ -28,8 +28,8 @@
             var book_keys = <?php echo $book_keys; ?>; // output php string here
 // ["title", "author", "edition"];
 
-            var book = <?php echo '["' . implode('", "', $myArray) . '"]'; ?>;
-            document.getElementById("demo").innerHTML =book_keys;
+            var book = <?php echo '["' . implode('", "', $book) . '"]'; ?>;
+            document.getElementById("demo").innerHTML =book;
 // ["JavaScript: The Definitive Guide", "David Flanagan", "6"];
         </script>
         
