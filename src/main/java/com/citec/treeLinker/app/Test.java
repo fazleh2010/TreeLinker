@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Test {
 
-    private static String INPUT_LOCATION = "src/main/resources";
+    //private static String INPUT_LOCATION = "src/main/resources";
+    private static String INPUT_LOCATION = "/Users/elahi/NetBeansProjects/new/final/TreeLinker/src/main/resources";
     private static String INPUT_JSON = "/qald/8/data/qald-8-test-multilingual.json";
     private static String INPUT_ALL_JSON = "/qald/all/";
     private static String INPUT_TEXT = "entityLinking_1.tsv";
@@ -20,10 +21,12 @@ public class Test {
          //CreateTree createTree1 = new CreateTree(search);
          createTree = new CreateTree(INPUT_LOCATION + File.separator + INPUT_TEXT,2);
          List<ResultQA>results=createTree.getResults("Gabriel Filmtheater");
-         
+         String str="";
          for (ResultQA result : results) {
-            System.out.println(result);
+             String line=result.getMatch()+"\n";
+             str+=line;
         }
+         System.out.println(str);
        
          //createTree = new CreateTree(INPUT_LOCATION+ File.separator +INPUT_ALL_JSON,1);
 
