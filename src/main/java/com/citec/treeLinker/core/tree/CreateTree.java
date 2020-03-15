@@ -11,8 +11,11 @@ import com.citec.treeLinker.core.input.DataUnit;
 import com.citec.treeLinker.core.input.JsonReader;
 import com.citec.treeLinker.core.input.Question;
 import com.citec.treeLinker.core.input.AnswerURI;
+import com.citec.treeLinker.core.output.AnswerProcessor;
+import com.citec.treeLinker.utils.FileUtils;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,21 +34,30 @@ import java.util.regex.Pattern;
 public class CreateTree {
 
     private TreeLexicon lexicon = new TreeLexicon();
+    private static String OUTPUT_TEXT = "tbx2rdf_atc_en_A_B_alter.txt";
 
-    public CreateTree(String fileName, Integer number) throws IOException {
+    public CreateTree(String dir, Integer number) throws IOException, Exception {
         if (number == 1) {
-            List<Tupple> inputTupples = this.getInputTupplesFromJsonFile(fileName);
-            TreeLexicon treeLexicon = createTree(inputTupples);
-            checkResultWhenJsonFile(treeLexicon);
+            List<Tupple> allInputTupples=new ArrayList<Tupple>();
+            File[]files=FileUtils.getFiles(dir, ".json");
+               for(File file:files) {
+               System.out.println(file.getName());
+               List<Tupple> inputTupples = this.getInputTupplesFromJsonFile(dir+file.getName());
+               allInputTupples.addAll(inputTupples);
+               TreeLexicon treeLexicon = createTree(inputTupples);
+               checkResultWhenJsonFile(treeLexicon);  
+               }
+               FileUtils.WriteToFile(allInputTupples,dir+OUTPUT_TEXT); 
+           
         } else {
-            List<Tupple> inputTupples = getInputTupplesFromTextFile(fileName);
+            List<Tupple> inputTupples = getInputTupplesFromTextFile(dir);
             TreeLexicon treeLexicon = createTree(inputTupples);
             checkResultWhenTextFile(treeLexicon);
         }
 
     }
 
-    public List<Tupple> getInputTupplesFromJsonFile(String fileName) throws IOException {
+    public List<Tupple> getInputTupplesFromJsonFile(String fileName) throws IOException, Exception {
         List<Tupple> inputTupples = new ArrayList<Tupple>();
         InputStream inputStream = new FileInputStream(fileName);
         InformationFinder informationFinder = new JsonReader(inputStream);
@@ -61,15 +73,20 @@ public class CreateTree {
                 //System.out.println("question:" + questionString);
             }
             List<Answers> answerUnits = dataUnit.getAnswers();
-            List<String> answers = AnswerURI.getAnswer(answerUnits);
+           // List<String> answers = AnswerURI.getAnswer(answerUnits);
             HashMap<String, String> sparql = dataUnit.getQuery();
             /*System.out.println("id:" + id);
             System.out.println("question:" + questionString);
             System.out.println("answers:" + answers);
             System.out.println("sparql:" + sparql);*/
             //System.out.println("entry: "+questionString+" uri:"+answers.toString()+" type:"+sparql);
-            Tupple tupple = new Tupple(questionString, answers.toString(), sparql.toString());
-            inputTupples.add(tupple);
+            AnswerProcessor answerProcessor=new AnswerProcessor(answerUnits,sparql);
+            if(answerProcessor.getUriListFirstUrl()){
+                String uri=answerProcessor.getUri();
+               Tupple tupple = new Tupple(questionString, uri, sparql.toString());
+               inputTupples.add(tupple);
+            }
+           
         }
         return inputTupples;
     }

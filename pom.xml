@@ -90,7 +90,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.citec.treeLinker.app.Test</mainClass>
+                            <mainClass>com.citec.treeLinker.utils.helloWorld.HelloWorld</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

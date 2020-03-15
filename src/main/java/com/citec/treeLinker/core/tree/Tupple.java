@@ -5,6 +5,9 @@
  */
 package com.citec.treeLinker.core.tree;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  *
  * @author elahi
@@ -22,6 +25,7 @@ public class Tupple {
 
     }
 
+
     public String getEntry() {
         return entry;
     }
@@ -32,6 +36,11 @@ public class Tupple {
 
     public String getType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return "Tupple{" + "entry=" + entry + ", uri=" + uri + ", type=" + type + '}';
     }
 
 }

@@ -17,26 +17,12 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AnswerURI {
-
     @JsonProperty("type")
     public String type;
 
     @JsonProperty("value")
     public String value;
-
-    @Override
-    public String toString() {
-        return "URI{" + "type=" + type + ", value=" + value + '}';
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
+    
     public static List<String> getAnswer(List<Answers> answerUnits) {
         List<String> uriList = new ArrayList<String>();
 
@@ -54,6 +40,30 @@ public class AnswerURI {
 
         }
         return uriList;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getValue() {
+        return value;
+    }
+     public static String getUriListFirst(List<Answers> answerUnits,HashMap<String, String> sparql) {
+         List<String> uriList=getAnswer(answerUnits); 
+         if(!uriList.isEmpty())
+            return uriList.iterator().next();
+         else{
+            return sparql.get("sparql"); 
+         }
+       
+    }
+     
+     
+
+    @Override
+    public String toString() {
+        return "URI{" + "type=" + type + ", value=" + value + '}';
     }
 
 }
