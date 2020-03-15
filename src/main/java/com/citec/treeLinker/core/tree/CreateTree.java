@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,26 +34,26 @@ import java.util.regex.Pattern;
  */
 public class CreateTree {
 
-    private TreeLexicon lexicon = new TreeLexicon();
-    private static String OUTPUT_TEXT = "tbx2rdf_atc_en_A_B_alter.txt";
+    private TreeLexicon treeLexicon = new TreeLexicon();
+    private String OUTPUT_TEXT = "tbx2rdf_atc_en_A_B_alter.txt";
 
     public CreateTree(String dir, Integer number) throws IOException, Exception {
         if (number == 1) {
-            List<Tupple> allInputTupples=new ArrayList<Tupple>();
-            File[]files=FileUtils.getFiles(dir, ".json");
-               for(File file:files) {
-               System.out.println(file.getName());
-               List<Tupple> inputTupples = this.getInputTupplesFromJsonFile(dir+file.getName());
-               allInputTupples.addAll(inputTupples);
-               TreeLexicon treeLexicon = createTree(inputTupples);
-               checkResultWhenJsonFile(treeLexicon);  
-               }
-               FileUtils.WriteToFile(allInputTupples,dir+OUTPUT_TEXT); 
-           
+            List<Tupple> allInputTupples = new ArrayList<Tupple>();
+            File[] files = FileUtils.getFiles(dir, ".json");
+            for (File file : files) {
+                List<Tupple> inputTupples = this.getInputTupplesFromJsonFile(dir + file.getName());
+                allInputTupples.addAll(inputTupples);
+                TreeLexicon treeLexicon = createTree(inputTupples);
+                checkResultWhenJsonFile(treeLexicon);
+            }
+            FileUtils.WriteToFile(allInputTupples, dir + OUTPUT_TEXT);
+
         } else {
             List<Tupple> inputTupples = getInputTupplesFromTextFile(dir);
-            TreeLexicon treeLexicon = createTree(inputTupples);
-            checkResultWhenTextFile(treeLexicon);
+            treeLexicon = createTree(inputTupples);
+            //temporarily closed...
+            //checkResultWhenTextFile();
         }
 
     }
@@ -73,20 +74,20 @@ public class CreateTree {
                 //System.out.println("question:" + questionString);
             }
             List<Answers> answerUnits = dataUnit.getAnswers();
-           // List<String> answers = AnswerURI.getAnswer(answerUnits);
+            // List<String> answers = AnswerURI.getAnswer(answerUnits);
             HashMap<String, String> sparql = dataUnit.getQuery();
             /*System.out.println("id:" + id);
             System.out.println("question:" + questionString);
             System.out.println("answers:" + answers);
             System.out.println("sparql:" + sparql);*/
             //System.out.println("entry: "+questionString+" uri:"+answers.toString()+" type:"+sparql);
-            AnswerProcessor answerProcessor=new AnswerProcessor(answerUnits,sparql);
-            if(answerProcessor.getUriListFirstUrl()){
-                String uri=answerProcessor.getUri();
-               Tupple tupple = new Tupple(questionString, uri, sparql.toString());
-               inputTupples.add(tupple);
+            AnswerProcessor answerProcessor = new AnswerProcessor(answerUnits, sparql);
+            if (answerProcessor.getUriListFirstUrl()) {
+                String uri = answerProcessor.getUri();
+                Tupple tupple = new Tupple(questionString, uri, sparql.toString());
+                inputTupples.add(tupple);
             }
-           
+
         }
         return inputTupples;
     }
@@ -95,31 +96,39 @@ public class CreateTree {
         // Open the file that is the first
         // command line parameter
         List<Tupple> inputTupples = new ArrayList<Tupple>();
-        FileInputStream fstream = new FileInputStream(fileName);
-        // Get the object of DataInputStream
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String strLine;
-        String token, tag;
-        //Read File Line By Line
-        String entry;
-        String uri;
-        String type;
-        Pattern p = Pattern.compile("(.*?)\t(.*?)\t(.*?)$");
-        Matcher matcher;
-        while ((strLine = br.readLine()) != null) {
-            // Print the content on the console
+        try {
 
-            matcher = p.matcher(strLine);
+            FileInputStream fstream = new FileInputStream(fileName);
 
-            if (matcher.find()) {
-                entry = matcher.group(2);
-                uri = matcher.group(1);
-                type = matcher.group(3);
-                inputTupples.add(new Tupple(entry, uri, type));
-                System.out.println("entry: " + entry + " uri:" + uri + " type:" + type);
+            // Get the object of DataInputStream
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            String token, tag;
+            //Read File Line By Line
+            String entry;
+            String uri;
+            String type;
+            Pattern p = Pattern.compile("(.*?)\t(.*?)\t(.*?)$");
+            Matcher matcher;
+            while ((strLine = br.readLine()) != null) {
+                // Print the content on the console
+
+                matcher = p.matcher(strLine);
+
+                if (matcher.find()) {
+                    entry = matcher.group(2);
+                    uri = matcher.group(1);
+                    type = matcher.group(3);
+                    inputTupples.add(new Tupple(entry, uri, type));
+                    //System.out.println("entry: " + entry + " uri:" + uri + " type:" + type);
+                }
             }
+        } // doesn't matches with ArithmeticException 
+        catch (Exception ex) {
+            System.out.println("File not found exception!!!");
         }
+
         return inputTupples;
     }
 
@@ -130,28 +139,28 @@ public class CreateTree {
             lexicon.insert(tupple.getEntry(), tupple.getUri(), tupple.getType());
         }
 
-        checkResultWhenTextFile(lexicon);
+        //checkResultWhenTextFile(lexicon);
         return lexicon;
     }
 
-    private void checkResultWhenTextFile(TreeLexicon lexicon) {
+     private void checkResultWhenTextFile() {
         System.out.print("Testing...Gabriel Filmtheater\n");
-        List<com.citec.treeLinker.core.tree.Result> results = lexicon.lookup("Gabriel Filmtheater");
+        List<com.citec.treeLinker.core.tree.Result> results = treeLexicon.lookup("Gabriel Filmtheater");
         for (com.citec.treeLinker.core.tree.Result result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Gabriel Frlmtheater\n");
-        results = lexicon.lookup("Gabriel Frlmtheater");
+        results = treeLexicon.lookup("Gabriel Frlmtheater");
         for (com.citec.treeLinker.core.tree.Result result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Gabriel Frlmtheater\n");
-        results = lexicon.lookup("Gabriel Frlmtheater", 0.1);
+        results = treeLexicon.lookup("Gabriel Frlmtheater", 0.1);
         for (com.citec.treeLinker.core.tree.Result result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Ich liebe Gabriel Frlmtheater und Odeon\n");
-        results = lexicon.lookup("Ich liebe Gabriel Frlmtheater und Odeon", 0.1);
+        results = treeLexicon.lookup("Ich liebe Gabriel Frlmtheater und Odeon", 0.1);
         for (com.citec.treeLinker.core.tree.Result result : results) {
             System.out.println(result);
         }
@@ -178,6 +187,14 @@ public class CreateTree {
         for (com.citec.treeLinker.core.tree.Result result : results) {
             System.out.println(result);
         }
+    }
+
+    public List<Result> getResults(String questionString) {
+        return  treeLexicon.lookup(questionString);
+    }
+
+    public TreeLexicon getTreeLexicon() {
+        return treeLexicon;
     }
 
 }
