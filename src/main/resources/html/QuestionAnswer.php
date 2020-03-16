@@ -8,50 +8,53 @@
         $text = shell_exec("java -jar /Users/elahi/NetBeansProjects/new/final/TreeLinker/target/TreeLinker-1.1-SNAPSHOT.jar");
         $myArray = explode(PHP_EOL, $text);
 
-        $arrayToDisplay = array();
+        $questions = array();
+        $answers = array();
 
+        
+        $x = 0;
         foreach ($myArray as $value) {
-            $arrayToDisplay[$value] = "answer";
+            $questions[$x] = $value;
+            $answers[$x] = $value;
+            $x++;
         }
 
-        $questions = '["' . implode('", "', $arrayToDisplay) . '"]';
-
- 
-
-
-
-
+        $questions = '["' . implode('", "', $questions) . '"]';
+        $answers = '["' . implode('", "', $answers) . '"]';
         ?>
+
+
+        <h4>Search terms</h4>
+        <!--Make sure the form has the autocomplete function switched off:-->
+        <form autocomplete="off" id="form_id"> 
+            <div class="autocomplete" style="width:300px;"> 
+                <input id="myInput" type="text" placeholder="Search.."> 
+            </div> 
+            <input id="submit" type="submit"> 
+        </form> 
+        <textarea id="output"  cols="100" rows="30"></textarea>
         <p id="key"></p>
-         <p id="value"></p>
-        
-         <h4>Search terms</h4>
-                        <!--Make sure the form has the autocomplete function switched off:-->
-                        <form autocomplete="off" id="form_id"> 
-                            <div class="autocomplete" style="width:300px;"> 
-                                <input id="myInput" type="text" placeholder="Search.."> 
-                            </div> 
-                            <input id="submit" type="submit"> 
-                        </form> 
+        <p id="value"></p>
+
 
         <script type="text/javascript">
-           var car1 = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
-           var car2 = ["B", "Vo", "Sa", "Fo", "Fi", "Au"];
-           window.termUrls = new Map();
+            var questions = <?php echo $questions; ?>;
+            var answers = <?php echo $answers; ?>;
+            window.termUrls = new Map();
 
-for (i = 0; i < car1.length; i++) {
-   window.termUrls.set(car1[i],car2[i]);
-}
-            
+            for (i = 0; i < questions.length; i++) {
+                window.termUrls.set(questions[i], answers[i]);
+            }
+
             //window.termUrls.set("abacavir","browser_en_A_B_1_term_0.html");
             //window.termUrls.set("abatacept","browser_en_A_B_1_term_1.html");
-            
+
             let arr = Array.from(termUrls.keys());
-            let values = Array.from(termUrls.values());
-            document.getElementById("key").innerHTML =arr;
-            document.getElementById("value").innerHTML =values;
-            
-            
+            //let values = Array.from(termUrls.values());
+            //document.getElementById("key").innerHTML = arr;
+            //document.getElementById("value").innerHTML = values;
+
+
             window.valueOfTextField = "";
             window.text = "";
             document.getElementById("myInput").style.borderColor = "blue";
@@ -173,7 +176,7 @@ for (i = 0; i < car1.length; i++) {
                         alert("search box is empty")
                     } else {
                         //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-                        document.getElementById('form_id').action =document.getElementById("value").innerHTML =window.valueOfTextField;
+                        document.getElementById("output").innerHTML = window.valueOfTextField;
                     }
                 }
 
