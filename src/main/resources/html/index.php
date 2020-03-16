@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <body>
 
         <h1>Question Answering System</h1>
@@ -28,12 +29,12 @@
         <!--Make sure the form has the autocomplete function switched off:-->
         <form autocomplete="off" id="form_id"> 
             <div class="autocomplete" style="width:300px;"> 
-                <textarea id="myInput"  cols="100" rows="2" type="text" placeholder="type a question here.."></textarea>
+                <textarea id="myInput"  cols="100" rows="2" type="text" placeholder="type a question here.." style="font-size: 14pt"></textarea>
             </div> 
             <!--input id="submit" type="submit"--> 
-            <input type="button" value="Ask a question">
+            <input type="button" value="Find Answer" style="font-size: 16pt">
         </form> 
-        <textarea id="answerTextBox"  cols="100" rows="30"></textarea>
+        <textarea id="answerTextBox"  cols="100" rows="20" style="font-size: 14pt"></textarea>
         <!--p>The machine is stopped.</p-->
 
 
@@ -42,7 +43,7 @@
 
 
             const button = document.querySelector('input');
-            const paragraph = document.querySelector('answer');
+            const paragraph = document.querySelector('answerTextBox');
 
             var questions = <?php echo $questions; ?>;
             var answers = <?php echo $answers; ?>;
@@ -166,7 +167,7 @@
 
                 function updateButton() {
                      window.valueOfTextField = window.termUrls.get(window.text);
-                    if (button.value === 'Ask a question') {
+                    if (button.value === 'Find Answer') {
                         //button.value = 'Answer';
                         document.getElementById("answerTextBox").value = window.valueOfTextField;
                     } /*else {
