@@ -18,6 +18,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -49,8 +50,14 @@ public class CreateTree {
             }
             FileUtils.WriteToFile(allInputTupples, dir + OUTPUT_TEXT);
 
-        } else {
+        } else if (number == 2){
             List<Tupple> inputTupples = getInputTupplesFromTextFile(dir);
+            treeLexicon = createTree(inputTupples);
+            //temporarily closed...
+            //checkResultWhenTextFile();
+        }
+        else {
+            List<Tupple> inputTupples = getInputTupplesFromPython(dir);
             treeLexicon = createTree(inputTupples);
             //temporarily closed...
             //checkResultWhenTextFile();
@@ -130,6 +137,44 @@ public class CreateTree {
         }
 
         return inputTupples;
+    }
+    
+     public List<Tupple> getInputTupplesFromPython(String fileName) throws FileNotFoundException, IOException {
+        List<Tupple> inputTupples = new ArrayList<Tupple>();
+        List<String> questions = new ArrayList<String>();
+        List<String> answers = new ArrayList<String>();
+
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            String line = reader.readLine();
+            while (line != null) {
+                if (line.contains(":")) {
+                    String[] info = line.split(":");
+                    if (info[0].contains("Q")) {
+                        questions.add(info[1]);
+                    } else if (info[0].contains("A")) {
+                        answers.add(info[1]);
+                    }
+                }
+                // read next line
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      
+        for (Integer index = 0; index < questions.size(); index++) {
+            String question=questions.get(index).toLowerCase().trim();
+            String answer=answers.get(index).toLowerCase().trim();
+            Tupple tupple=new Tupple(question, answer, "legal");
+            System.out.println(tupple.toString());
+            inputTupples.add(tupple);
+        }
+        return inputTupples;
+
+        
     }
 
     private TreeLexicon createTree(List<Tupple> inputTupples) throws FileNotFoundException, IOException {
