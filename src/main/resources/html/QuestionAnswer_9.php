@@ -28,10 +28,9 @@
         <!--Make sure the form has the autocomplete function switched off:-->
         <form autocomplete="off" id="form_id"> 
             <div class="autocomplete" style="width:300px;"> 
-                <textarea id="myInput"  cols="100" rows="2" type="text" placeholder="type a question here.."></textarea>
+                <input id="myInput" type="text" placeholder="Search.."> 
             </div> 
-            <!--input id="submit" type="submit"--> 
-            <input id="submit" type="submit" value="Submit">
+            <input id="submit" type="submit"> 
         </form> 
         <textarea id="output"  cols="100" rows="30"></textarea>
         <p id="key"></p>
