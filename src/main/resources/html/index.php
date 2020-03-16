@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-    
     <body>
 
         <h1>Question Answering System</h1>
 
         <?php
-        $text = shell_exec("java -jar /Users/elahi/NetBeansProjects/new/final/TreeLinker/target/TreeLinker-1.1-SNAPSHOT.jar");
+        $text = shell_exec("java -jar /Users/elahi/NetBeansProjects/new/final/TreeLinker/target/TreeLinker-1.3-SNAPSHOT.jar");
         $myArray = explode(PHP_EOL, $text);
 
         $questions = array();
@@ -22,6 +21,7 @@
 
         $questions = '["' . implode('", "', $questions) . '"]';
         $answers = '["' . implode('", "', $answers) . '"]';
+        
         ?>
 
 
@@ -32,7 +32,7 @@
                 <textarea id="myInput"  cols="100" rows="2" type="text" placeholder="type a question here.." style="font-size: 14pt"></textarea>
             </div> 
             <!--input id="submit" type="submit"--> 
-            <input type="button" value="Find Answer" style="font-size: 16pt">
+            <input type="button" value="Find Answer" >
         </form> 
         <textarea id="answerTextBox"  cols="100" rows="20" style="font-size: 14pt"></textarea>
         <!--p>The machine is stopped.</p-->
@@ -43,7 +43,7 @@
 
 
             const button = document.querySelector('input');
-            const paragraph = document.querySelector('answerTextBox');
+            const paragraph = document.querySelector('answer');
 
             var questions = <?php echo $questions; ?>;
             var answers = <?php echo $answers; ?>;
