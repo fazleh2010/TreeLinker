@@ -11,19 +11,45 @@
         $arrayToDisplay = array();
 
         foreach ($myArray as $value) {
-            $arrayToDisplay[$value] = "answer";
+            $arrayToDisplay[$value] = $value;
         }
 
         $questions = '["' . implode('", "', $arrayToDisplay) . '"]';
 
- 
+        // Declare and initialize array 
+        $sides = array("Up", "Down", "Left", "Right");
+        $directions = array("North", "South", "West", "East");
+        
+        // As an object set
+$s = new SplObjectStorage();
+
+$o1 = new StdClass;
+$o2 = new StdClass;
+$o3 = new StdClass;
+
+$s->attach($o1);
+$s->attach($o2);
+
+var_dump($s->contains($o1));
+var_dump($s->contains($o2));
+var_dump($s->contains($o3));
+
+$s->detach($o2);
+
+var_dump($s->contains($o1));
+var_dump($s->contains($o2));
+var_dump($s->contains($o3));
+
+$map = new \Ds\Map(["a" => 1, "b" => 2, "c" => 3]);
 
 
 
-
+// Use foreach loop to display array elements 
+        foreach ($sides as $index => $side) {
+            //echo $side . " => " . $directions[$index] . " \n";
+        }
         ?>
-        <p id="key"></p>
-         <p id="value"></p>
+        <p id="demo"></p>
         
          <h4>Search terms</h4>
                         <!--Make sure the form has the autocomplete function switched off:-->
@@ -35,21 +61,16 @@
                         </form> 
 
         <script type="text/javascript">
-           var car1 = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
-           var car2 = ["B", "Vo", "Sa", "Fo", "Fi", "Au"];
-           window.termUrls = new Map();
+           
+            
 
-for (i = 0; i < car1.length; i++) {
-   window.termUrls.set(car1[i],car2[i]);
-}
+
+            window.termUrls = new Map();
+            window.termUrls = <?php echo $questions; ?>;
+            let arr = <?php echo $questions; ?>;
             
-            //window.termUrls.set("abacavir","browser_en_A_B_1_term_0.html");
-            //window.termUrls.set("abatacept","browser_en_A_B_1_term_1.html");
-            
-            let arr = Array.from(termUrls.keys());
-            let values = Array.from(termUrls.values());
-            document.getElementById("key").innerHTML =arr;
-            document.getElementById("value").innerHTML =values;
+            //let arr = Array.from(termUrls.keys());
+            document.getElementById("demo").innerHTML =arr;
             
             
             window.valueOfTextField = "";
@@ -172,8 +193,7 @@ for (i = 0; i < car1.length; i++) {
                     if (document.getElementById("myInput").value == "") {
                         alert("search box is empty")
                     } else {
-                        //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-                        document.getElementById('form_id').action =document.getElementById("value").innerHTML =window.valueOfTextField;
+                        document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
                     }
                 }
 

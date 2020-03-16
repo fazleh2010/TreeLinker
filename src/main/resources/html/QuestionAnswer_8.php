@@ -18,12 +18,11 @@
 
  
 
-
+echo json_encode($arrayToDisplay);
 
 
         ?>
-        <p id="key"></p>
-         <p id="value"></p>
+        <p id="demo"></p>
         
          <h4>Search terms</h4>
                         <!--Make sure the form has the autocomplete function switched off:-->
@@ -35,21 +34,15 @@
                         </form> 
 
         <script type="text/javascript">
-           var car1 = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
-           var car2 = ["B", "Vo", "Sa", "Fo", "Fi", "Au"];
-           window.termUrls = new Map();
+           
 
-for (i = 0; i < car1.length; i++) {
-   window.termUrls.set(car1[i],car2[i]);
-}
+
+            window.termUrls = new Map();
+            window.termUrls = <?php echo json_encode($arrayToDisplay, JSON_FORCE_OBJECT); ?>;
+            let arr = <?php echo $questions; ?>;
             
-            //window.termUrls.set("abacavir","browser_en_A_B_1_term_0.html");
-            //window.termUrls.set("abatacept","browser_en_A_B_1_term_1.html");
-            
-            let arr = Array.from(termUrls.keys());
-            let values = Array.from(termUrls.values());
-            document.getElementById("key").innerHTML =arr;
-            document.getElementById("value").innerHTML =values;
+            //let arr = Array.from(termUrls.keys());
+            document.getElementById("demo").innerHTML =window.termUrls;
             
             
             window.valueOfTextField = "";
@@ -172,8 +165,7 @@ for (i = 0; i < car1.length; i++) {
                     if (document.getElementById("myInput").value == "") {
                         alert("search box is empty")
                     } else {
-                        //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-                        document.getElementById('form_id').action =document.getElementById("value").innerHTML =window.valueOfTextField;
+                        document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
                     }
                 }
 
