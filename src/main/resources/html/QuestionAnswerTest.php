@@ -24,26 +24,20 @@
         ?>
 
 
-      
+        <h4>Search terms</h4>
         <!--Make sure the form has the autocomplete function switched off:-->
         <form autocomplete="off" id="form_id"> 
             <div class="autocomplete" style="width:300px;"> 
                 <textarea id="myInput"  cols="100" rows="2" type="text" placeholder="type a question here.."></textarea>
             </div> 
             <!--input id="submit" type="submit"--> 
-            <input type="button" value="Ask a question">
+            <input id="submit" type="submit" value="Submit">
         </form> 
-        <textarea id="answerTextBox"  cols="100" rows="30"></textarea>
-        <!--p>The machine is stopped.</p-->
-
+        <textarea id="output"  cols="100" rows="30"></textarea>
+    
 
 
         <script type="text/javascript">
-
-
-            const button = document.querySelector('input');
-            const paragraph = document.querySelector('answer');
-
             var questions = <?php echo $questions; ?>;
             var answers = <?php echo $answers; ?>;
             window.termUrls = new Map();
@@ -162,30 +156,23 @@
                         }
                     }
                 }
-                button.addEventListener('click', updateButton);
-
-                function updateButton() {
-                     window.valueOfTextField = window.termUrls.get(window.text);
-                    if (button.value === 'Ask a question') {
-                        //button.value = 'Answer';
-                        document.getElementById("answerTextBox").value = window.valueOfTextField;
-                    } /*else {
-                        button.value = 'Start machine';
-                        paragraph.textContent = 'The machine is stopped.';
-                    }*/
-                }
+                document.addEventListener("click", function (e) {
+                    //document.getElementById("myInput").value=window.valueOfTextField;
+                    //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
+                    //closeAllLists(e.target);
+                });
 
                 /*document.getElementById("form_id").addEventListener("submit", myFunction);
-                 function myFunction() {
-                 window.valueOfTextField = window.termUrls.get(window.text);
-                 if (document.getElementById("myInput").value == "") {
-                 alert("search box is empty")
-                 } else {
-                 //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-                 //document.getElementById("output").innerHTML = window.valueOfTextField;
-                 document.getElementById("output").value = 'Soap';
-                 }
-                 }*/
+                function myFunction() {
+                    window.valueOfTextField = window.termUrls.get(window.text);
+                    if (document.getElementById("myInput").value == "") {
+                        alert("search box is empty")
+                    } else {
+                        //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
+                        //document.getElementById("output").innerHTML = window.valueOfTextField;
+                        document.getElementById("output").value = 'Soap';
+                    }
+                }*/
 
 
             }
