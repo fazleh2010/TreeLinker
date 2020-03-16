@@ -14,41 +14,29 @@
             $arrayToDisplay[$value] = $value;
         }
 
-        $questions = '["' . implode('", "', $arrayToDisplay) . '"]';
+        $book_keys = '["' . implode('", "', $arrayToDisplay) . '"]';
 
         // Declare and initialize array 
-        $sides = array("Up", "Down", "Left", "Right");
-        $directions = array("North", "South", "West", "East");
+        $questions = array("Up", "Down", "Left", "Right");
+        $answers = array("North", "South", "West", "East");
 
 // Use foreach loop to display array elements 
-        foreach ($sides as $index => $side) {
-            //echo $side . " => " . $directions[$index] . " \n";
+        foreach ($questions as $index => $questions) {
+            echo $questions . " => " . $answers[$index] . " \n";
         }
         ?>
         <p id="demo"></p>
-        
-         <h4>Search terms</h4>
-                        <!--Make sure the form has the autocomplete function switched off:-->
-                        <form autocomplete="off" id="form_id"> 
-                            <div class="autocomplete" style="width:300px;"> 
-                                <input id="myInput" type="text" placeholder="Search.."> 
-                            </div> 
-                            <input id="submit" type="submit"> 
-                        </form> 
 
         <script type="text/javascript">
            
-            
+            //document.getElementById("demo").innerHTML =book_keys;
 
 
             window.termUrls = new Map();
-            window.termUrls = <?php echo $questions; ?>;
-            let arr = <?php echo $questions; ?>;
+            window.termUrls = <?php echo $book_keys; ?>;
+            let arr = <?php echo $book_keys; ?>;
             
             //let arr = Array.from(termUrls.keys());
-            document.getElementById("demo").innerHTML =arr;
-            
-            
             window.valueOfTextField = "";
             window.text = "";
             document.getElementById("myInput").style.borderColor = "blue";
