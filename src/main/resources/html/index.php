@@ -1,5 +1,28 @@
 <!DOCTYPE html>
 <html>
+
+    <head>
+        <style>
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+
+            .button2 {background-color: #008CBA;} /* Blue */
+            .button3 {background-color: #f44336;} /* Red */ 
+            .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
+            .button5 {background-color: #555555;} /* Black */
+        </style>
+    </head>
+
     <body>
 
         <h1>Question Answering System</h1>
@@ -21,18 +44,17 @@
 
         $questions = '["' . implode('", "', $questions) . '"]';
         $answers = '["' . implode('", "', $answers) . '"]';
-        
         ?>
 
 
-      
+
         <!--Make sure the form has the autocomplete function switched off:-->
         <form autocomplete="off" id="form_id"> 
             <div class="autocomplete" style="width:300px;"> 
                 <textarea id="myInput"  cols="100" rows="2" type="text" placeholder="type a question here.." style="font-size: 14pt"></textarea>
             </div> 
             <!--input id="submit" type="submit"--> 
-            <input type="button" value="Find Answer" >
+            <input type="button" value="FindAnswer">
         </form> 
         <textarea id="answerTextBox"  cols="100" rows="20" style="font-size: 14pt"></textarea>
         <!--p>The machine is stopped.</p-->
@@ -166,14 +188,14 @@
                 button.addEventListener('click', updateButton);
 
                 function updateButton() {
-                     window.valueOfTextField = window.termUrls.get(window.text);
-                    if (button.value === 'Find Answer') {
+                    window.valueOfTextField = window.termUrls.get(window.text);
+                    if (button.value === 'FindAnswer') {
                         //button.value = 'Answer';
                         document.getElementById("answerTextBox").value = window.valueOfTextField;
                     } /*else {
-                        button.value = 'Start machine';
-                        paragraph.textContent = 'The machine is stopped.';
-                    }*/
+                     button.value = 'Start machine';
+                     paragraph.textContent = 'The machine is stopped.';
+                     }*/
                 }
 
                 /*document.getElementById("form_id").addEventListener("submit", myFunction);
