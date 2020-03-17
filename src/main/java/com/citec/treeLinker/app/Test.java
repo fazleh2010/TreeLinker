@@ -1,37 +1,50 @@
 package com.citec.treeLinker.app;
 
+import com.citec.treeLinker.api.Constants;
 import com.citec.treeLinker.core.tree.CreateTree;
 import com.citec.treeLinker.core.tree.ResultQA;
+import com.citec.treeLinker.core.tree.Tupple;
 import com.citec.treeLinker.utils.FileUtils;
-import com.citec.treeLinker.utils.QuesAnsElement;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class Test {
+public class Test implements Constants{
 
     //private static String INPUT_LOCATION = "src/main/resources";
-    private static String INPUT_LOCATION = "/Users/elahi/NetBeansProjects/new/final/TreeLinker/src/main/resources";
-    private static String INPUT_JSON = "/qald/8/data/qald-8-test-multilingual.json";
-    private static String INPUT_ALL_JSON = "/qald/all/";
-    private static String INPUT_TEXT = "entityLinking.tsv";
-    private static String INPUT_TEXT_FROM_PYTHON = "questions.txt";
 
     public static void main(String[] args) throws IOException, Exception {
-        CreateTree createTree;
-        // If Json file then 
-         //createTree = new CreateTree(INPUT_LOCATION + File.separator + INPUT_ALL_JSON,1);
-         //CreateTree createTree1 = new CreateTree(search);
+        String inputType=TEXT;
+         String searchtype="all";
+         String content="";
+        /*if(args.length<2){
+           inputType=args[0];
+           if(inputTypes.contains(inputType)){
+               
+           }
+               else
+                throw new Exception("The input type is wrong!!");
+               
+           searchtype=args[1];
+        }
+        else
+            throw new Exception("the number of parameters are wrong!!");*/
          
+
+            
+         CreateTree createTree = new CreateTree(inputType);
+         if(searchtype.contains("all")){
+             content=FileUtils.output(createTree.getInputTupples());
+             System.out.println(content);
+         }
          
-         createTree = new CreateTree(INPUT_LOCATION + File.separator + INPUT_TEXT_FROM_PYTHON,3);
-         List<ResultQA>results=createTree.getResults("what are the rules of the end of probationary period?");
+         /*List<ResultQA>results=createTree.getResults("what regulations exist with respect to probationary period?");
          String str="";
          for (ResultQA result : results) {
              String line=result.getMatch()+"\n";
              str+=line;
         }
          System.out.println(str);
+        */
        
          
          /////// important codes..

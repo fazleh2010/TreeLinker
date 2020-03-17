@@ -5,6 +5,10 @@
  */
 package com.citec.treeLinker.core.tree;
 
+import static com.citec.treeLinker.api.Constants.INPUT_CSV;
+import static com.citec.treeLinker.api.Constants.INPUT_JSON;
+import static com.citec.treeLinker.api.Constants.INPUT_LOCATION;
+import static com.citec.treeLinker.api.Constants.INPUT_TEXT;
 import com.citec.treeLinker.api.InformationFinder;
 import com.citec.treeLinker.core.input.Answers;
 import com.citec.treeLinker.core.input.DataUnit;
@@ -25,9 +29,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static com.citec.treeLinker.api.Constants.JSON;
+import static com.citec.treeLinker.api.Constants.CSV;
+import static com.citec.treeLinker.api.Constants.TEXT;
 
 /**
  *
@@ -36,28 +42,35 @@ import java.util.regex.Pattern;
 public class CreateTree {
 
     private TreeLexicon treeLexicon = new TreeLexicon();
+    private  List<Tupple> inputTupples = new ArrayList<Tupple>();
     private String OUTPUT_TEXT = "tbx2rdf_atc_en_A_B_alter.txt";
 
-    public CreateTree(String dir, Integer number) throws IOException, Exception {
-        if (number == 1) {
+    public CreateTree(String inputType) throws IOException, Exception {
+
+        String inputFileName = null;
+
+        if (inputType.equals(JSON)) {
+            //currently not working..needs to be check..
+            inputFileName = INPUT_LOCATION + File.separator + INPUT_JSON;
             List<Tupple> allInputTupples = new ArrayList<Tupple>();
-            File[] files = FileUtils.getFiles(dir, ".json");
+            File[] files = FileUtils.getFiles(inputFileName, ".json");
             for (File file : files) {
-                List<Tupple> inputTupples = this.getInputTupplesFromJsonFile(dir + file.getName());
+                 inputTupples = this.getInputTupplesFromJsonFile(inputFileName + file.getName());
                 allInputTupples.addAll(inputTupples);
                 TreeLexicon treeLexicon = createTree(inputTupples);
                 checkResultWhenJsonFile(treeLexicon);
             }
-            FileUtils.WriteToFile(allInputTupples, dir + OUTPUT_TEXT);
+            FileUtils.WriteToFile(allInputTupples, inputFileName + OUTPUT_TEXT);
 
-        } else if (number == 2){
-            List<Tupple> inputTupples = getInputTupplesFromTextFile(dir);
+        } else if (inputType.equals(CSV)) {
+            inputFileName = INPUT_LOCATION + File.separator + INPUT_CSV;
+            inputTupples = getInputTupplesFromTextFile(inputFileName);
             treeLexicon = createTree(inputTupples);
             //temporarily closed...
             //checkResultWhenTextFile();
-        }
-        else {
-            List<Tupple> inputTupples = getInputTupplesFromPython(dir);
+        } else if (inputType.equals(TEXT)) {
+            inputFileName = INPUT_LOCATION + File.separator + INPUT_TEXT;
+            inputTupples = getInputTupplesFromPython(inputFileName);
             treeLexicon = createTree(inputTupples);
             //temporarily closed...
             //checkResultWhenTextFile();
@@ -128,7 +141,7 @@ public class CreateTree {
                     uri = matcher.group(1);
                     type = matcher.group(3);
                     inputTupples.add(new Tupple(entry, uri, type));
-                    //System.out.println("entry: " + entry + " uri:" + uri + " type:" + type);
+                    System.out.println("entry: " + entry + " uri:" + uri + " type:" + type);
                 }
             }
         } // doesn't matches with ArithmeticException 
@@ -138,8 +151,8 @@ public class CreateTree {
 
         return inputTupples;
     }
-    
-     public List<Tupple> getInputTupplesFromPython(String fileName) throws FileNotFoundException, IOException {
+
+    public List<Tupple> getInputTupplesFromPython(String fileName) throws FileNotFoundException, IOException {
         List<Tupple> inputTupples = new ArrayList<Tupple>();
         List<String> questions = new ArrayList<String>();
         List<String> answers = new ArrayList<String>();
@@ -164,17 +177,15 @@ public class CreateTree {
         } catch (IOException e) {
             e.printStackTrace();
         }
-      
+
         for (Integer index = 0; index < questions.size(); index++) {
-            String question=questions.get(index).toLowerCase().trim();
-            String answer=answers.get(index).toLowerCase().trim();
-            Tupple tupple=new Tupple(question, answer, "legal");
-            System.out.println(tupple.toString());
+            String question = questions.get(index).toLowerCase().trim();
+            String answer = answers.get(index).toLowerCase().trim();
+            Tupple tupple = new Tupple(question, answer, "legal");
             inputTupples.add(tupple);
         }
         return inputTupples;
 
-        
     }
 
     private TreeLexicon createTree(List<Tupple> inputTupples) throws FileNotFoundException, IOException {
@@ -188,7 +199,7 @@ public class CreateTree {
         return lexicon;
     }
 
-     private void checkResultWhenTextFile() {
+    private void checkResultWhenTextFile() {
         System.out.print("Testing...Gabriel Filmtheater\n");
         List<ResultQA> results = treeLexicon.lookup("Gabriel Filmtheater");
         for (ResultQA result : results) {
@@ -235,11 +246,15 @@ public class CreateTree {
     }
 
     public List<ResultQA> getResults(String questionString) {
-        return  treeLexicon.lookup(questionString);
+        return treeLexicon.lookup(questionString);
     }
 
     public TreeLexicon getTreeLexicon() {
         return treeLexicon;
+    }
+
+    public List<Tupple> getInputTupples() {
+        return inputTupples;
     }
 
 }

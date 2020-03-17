@@ -91,6 +91,15 @@ public class FileUtils {
         }
         stringToFile(str, fileName);
     }
+    
+    public static String output(List<Tupple> inputTupples) throws IOException {
+        String str = "";
+        for (Tupple tupple : inputTupples) {
+            String line = tupple.getEntry() + "=" + tupple.getUri();
+            str += line + "\n";
+        }
+        return str;
+    }
 
     public static void stringToFile(String str, String fileName)
             throws IOException {

@@ -37,8 +37,10 @@
 
         $x = 0;
         foreach ($myArray as $value) {
-            $questions[$x] = $value;
-            $answers[$x] = $value;
+            list($ques, $ans) = explode("=", $value);
+            $questions[$x] = $ques;
+            $answers[$x] = $ans;
+            //echo $ques.'  '.$ans.'  '.$x.'<br/>'; 
             $x++;
         }
 
