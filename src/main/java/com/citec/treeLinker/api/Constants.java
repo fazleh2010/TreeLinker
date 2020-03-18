@@ -25,6 +25,10 @@ public interface Constants {
     public static String TEXT = "text";
     public static String TSV = "tsv";
     public static String JSON = "json";
-    public static Set<String> inputTypes = new HashSet<String>(Arrays.asList(TEXT,TSV,JSON));   
+    public static Set<String> inputTypes = new HashSet<String>(Arrays.asList(TEXT,TSV,JSON)); 
+    
+    
+    public static String ALL = "all";
+    public static String SEARCH = "search";
 
 }

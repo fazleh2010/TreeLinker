@@ -28,7 +28,7 @@
         <h1>Question Answering System</h1>
 
         <?php
-        $text = shell_exec("java -jar /Users/elahi/NetBeansProjects/new/final/TreeLinker/target/TreeLinker-1.3-SNAPSHOT.jar");
+        $text = shell_exec("java -jar /Users/elahi/NetBeansProjects/new/final/TreeLinker/target/TreeLinker-1.3.jar");
         $myArray = explode(PHP_EOL, $text);
 
         $questions = array();
