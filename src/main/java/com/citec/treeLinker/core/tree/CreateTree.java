@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static com.citec.treeLinker.api.Constants.JSON;
-import static com.citec.treeLinker.api.Constants.CSV;
 import static com.citec.treeLinker.api.Constants.TEXT;
+import static com.citec.treeLinker.api.Constants.TSV;
 
 /**
  *
@@ -58,15 +58,14 @@ public class CreateTree {
                  inputTupples = this.getInputTupplesFromJsonFile(inputFileName + file.getName());
                 allInputTupples.addAll(inputTupples);
                 TreeLexicon treeLexicon = createTree(inputTupples);
-                checkResultWhenJsonFile(treeLexicon);
+                checkResultWhenJsonFile();
             }
             FileUtils.WriteToFile(allInputTupples, inputFileName + OUTPUT_TEXT);
 
-        } else if (inputType.equals(CSV)) {
+        } else if (inputType.equals(TSV)) {
             inputFileName = INPUT_LOCATION + File.separator + INPUT_CSV;
             inputTupples = getInputTupplesFromTextFile(inputFileName);
             treeLexicon = createTree(inputTupples);
-            //temporarily closed...
             //checkResultWhenTextFile();
         } else if (inputType.equals(TEXT)) {
             inputFileName = INPUT_LOCATION + File.separator + INPUT_TEXT;
@@ -141,7 +140,7 @@ public class CreateTree {
                     uri = matcher.group(1);
                     type = matcher.group(3);
                     inputTupples.add(new Tupple(entry, uri, type));
-                    System.out.println("entry: " + entry + " uri:" + uri + " type:" + type);
+                    //System.out.println("entry: " + entry + " uri:" + uri + " type:" + type);
                 }
             }
         } // doesn't matches with ArithmeticException 
@@ -199,7 +198,8 @@ public class CreateTree {
         return lexicon;
     }
 
-    private void checkResultWhenTextFile() {
+    //orginal..
+    public void checkResultWhenTextFile() {
         System.out.print("Testing...Gabriel Filmtheater\n");
         List<ResultQA> results = treeLexicon.lookup("Gabriel Filmtheater");
         for (ResultQA result : results) {
@@ -222,24 +222,24 @@ public class CreateTree {
         }
     }
 
-    private void checkResultWhenJsonFile(TreeLexicon lexicon) {
+    private void checkResultWhenJsonFile() {
         System.out.print("Testing...Who is 8th president of US?\n");
-        List<ResultQA> results = lexicon.lookup("Who is 8th president of US?");
+        List<ResultQA> results = treeLexicon.lookup("Who is 8th president of US?");
         for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Where is the most deep point in the ocean?\n");
-        results = lexicon.lookup("Where is the most deep point in the ocean?");
+        results = treeLexicon.lookup("Where is the most deep point in the ocean?");
         for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Who is the novelist of the work a song of ice and fire?\n");
-        results = lexicon.lookup("the novelist of the work a song of ice", 0.1);
+        results = treeLexicon.lookup("the novelist of the work a song of ice", 0.1);
         for (ResultQA result : results) {
             System.out.println(result);
         }
         System.out.print("Testing...Where is the birthplace of Goethe?\n");
-        results = lexicon.lookup("birthplace of Goethe", 0.1);
+        results = treeLexicon.lookup("birthplace of Goethe", 0.1);
         for (ResultQA result : results) {
             System.out.println(result);
         }

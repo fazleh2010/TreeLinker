@@ -23,8 +23,8 @@ public interface Constants {
     public static String INPUT_TEXT = "questions.txt";
 
     public static String TEXT = "text";
-    public static String CSV = "csv";
+    public static String TSV = "tsv";
     public static String JSON = "json";
-    public static Set<String> inputTypes = new HashSet<String>(Arrays.asList(TEXT,CSV,JSON));   
+    public static Set<String> inputTypes = new HashSet<String>(Arrays.asList(TEXT,TSV,JSON));   
 
 }
