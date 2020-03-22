@@ -12,8 +12,8 @@ public class Test implements Constants {
 
     //private static String INPUT_LOCATION = "src/main/resources";
     public static void main(String[] args) throws IOException, Exception {
-        String inputType = TEXT;
-        String searchtype = ALL;
+        String inputType = TSV;
+        String searchtype = SEARCH;
         String content = "";
         /*if(args.length<2){
            inputType=args[0];
@@ -34,17 +34,17 @@ public class Test implements Constants {
         if (searchtype.contains(ALL)) {
             System.out.println(content);
         }
-        /*if (searchtype.contains("search")) {
+        if (searchtype.contains(SEARCH)) {
             createTree.checkResultWhenTextFile();
-            List<ResultQA> results = createTree.getResults("What");
+            /*List<ResultQA> results = createTree.getResults("Gabriel Frlmtheater");
             String str = "";
             for (ResultQA result : results) {
                 String line = result.getMatch() + "\n";
                 str += line;
-            }
-            System.out.println(str);
+            }*/
+            //System.out.println(str);
 
-        }*/
+        }
 
         /*List<ResultQA>results=createTree.getResults("what regulations exist with respect to probationary period?");
          String str="";

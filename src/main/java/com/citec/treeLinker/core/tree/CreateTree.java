@@ -205,16 +205,33 @@ public class CreateTree {
         for (ResultQA result : results) {
             System.out.println(result);
         }
+        System.out.print("Testing...Gabriel\n");
+        results =new ArrayList<ResultQA>();
+        results = treeLexicon.lookup("Gabriel");
+        for (ResultQA result : results) {
+            System.out.println(result);
+        }
+        
+        System.out.print("Testing...Filmtheater\n");
+        results =new ArrayList<ResultQA>();
+        results = treeLexicon.lookup("Filmtheater");
+        for (ResultQA result : results) {
+            System.out.println(result);
+        }
+        
+        results =new ArrayList<ResultQA>();
         System.out.print("Testing...Gabriel Frlmtheater\n");
         results = treeLexicon.lookup("Gabriel Frlmtheater");
         for (ResultQA result : results) {
             System.out.println(result);
         }
+        results =new ArrayList<ResultQA>();
         System.out.print("Testing...Gabriel Frlmtheater\n");
         results = treeLexicon.lookup("Gabriel Frlmtheater", 0.1);
         for (ResultQA result : results) {
             System.out.println(result);
         }
+        results =new ArrayList<ResultQA>();
         System.out.print("Testing...Ich liebe Gabriel Frlmtheater und Odeon\n");
         results = treeLexicon.lookup("Ich liebe Gabriel Frlmtheater und Odeon", 0.1);
         for (ResultQA result : results) {

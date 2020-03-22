@@ -50,8 +50,7 @@ public class ResultQA {
 
     @Override
     public String toString() {
-        return "Result [match=" + match + ", uri=" + uri + ", type=" + type
-                + "]";
+        return  match + ", uri=" + uri + ", type=" + type;
     }
 
 }
