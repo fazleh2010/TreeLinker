@@ -2,49 +2,37 @@ package com.citec.treeLinker.app;
 
 import com.citec.treeLinker.api.Constants;
 import com.citec.treeLinker.core.tree.CreateTree;
-import com.citec.treeLinker.core.tree.ResultQA;
-import com.citec.treeLinker.core.tree.Tupple;
 import com.citec.treeLinker.utils.FileUtils;
 import java.io.IOException;
-import java.util.List;
 
-public class Test implements Constants {
+public class Main implements Constants {
 
-    //private static String INPUT_LOCATION = "src/main/resources";
     public static void main(String[] args) throws IOException, Exception {
-        String inputType = TSV;
-        String searchtype = SEARCH;
+        String inputType = TEXT;
+        String searchtype = ALL;
         String content = "";
-        /*if(args.length<2){
-           inputType=args[0];
-           if(inputTypes.contains(inputType)){
-               
-           }
-               else
-                throw new Exception("The input type is wrong!!");
-               
-           searchtype=args[1];
-        }
-        else
-            throw new Exception("the number of parameters are wrong!!");*/
+                    
+        System.out.println("Test..");
 
         CreateTree createTree = new CreateTree(inputType);
         content = FileUtils.output(createTree.getInputTupples());
         
-        if (searchtype.contains(ALL)) {
+         System.out.println(content);
+
+        /*if (searchtype.contains(ALL)) {
             System.out.println(content);
-        }
-        if (searchtype.contains(SEARCH)) {
+        }*/
+         /*if (searchtype.contains(SEARCH)) {
             createTree.checkResultWhenTextFile();
             /*List<ResultQA> results = createTree.getResults("Gabriel Frlmtheater");
             String str = "";
             for (ResultQA result : results) {
                 String line = result.getMatch() + "\n";
                 str += line;
-            }*/
+            }
             //System.out.println(str);
 
-        }
+        }*/
 
         /*List<ResultQA>results=createTree.getResults("what regulations exist with respect to probationary period?");
          String str="";

@@ -21,9 +21,9 @@
     <body>
 
         <h2>Ask a question</h2>
-
+        
         <?php
-        $text = shell_exec("java -jar /Users/elahi/NetBeansProjects/new/final/TreeLinker/TreeLinker-1.4-SNAPSHOT.jar");
+        $text = shell_exec("java -jar /home/elahi/NetBeansProjects/TreeLinker/target/TreeLinker-1.5.jar");
         $myArray = explode(PHP_EOL, $text);
 
         $questions = array();

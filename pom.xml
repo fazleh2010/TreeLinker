@@ -6,7 +6,7 @@
 
     <groupId>my.org</groupId>
     <artifactId>TreeLinker</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.5</version>
 
     <name>TreeLinker</name>
     <description>A simple downloadApp.</description>
@@ -90,7 +90,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.citec.treeLinker.app.Test</mainClass>
+                            <mainClass>com.citec.treeLinker.app.Main</mainClass>
                             <!--mainClass>com.citec.treeLinker.app.Test</mainClass-->
                         </manifest>
                     </archive>
