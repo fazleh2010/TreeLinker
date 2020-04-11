@@ -61,14 +61,13 @@ termUrls.set("what rules govern the protective action of the social security of 
 termUrls.set("what rules govern the salary in the context of work-at-home contracts?","3  the salary, in whatever form it is specified, shall be at least equal to that of a worker from an equivalent occupational category in the economic sector concerned.");
 termUrls.set("what rules govern the validity of the contract?","1  should only one part of the work contract turn out null and void, this shall remain valid in the rest, and it shall be understood as completed with the appropriate legal precepts in keeping with the provision contained in number 1 of article 3 of this law. should the worker have been granted special conditions or compensations by virtue of considerations established in that part of the contract that is not valid, the competent jurisdiction which, upon the petition of a party, declares the nullity, shall make the due pronouncement on the subsistence or suppression of all or part of such conditions or compensations.");
 
+const button = document.querySelector('input');
+const paragraph = document.querySelector('answer');
 let arr = Array.from(termUrls.keys());
 window.valueOfTextField = "";
 window.text = "";
 document.getElementById("myInput").style.borderColor = "blue";
- 
 autocomplete(document.getElementById("myInput"), arr);
-
-
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
      the text field element and an array of possible autocompleted values:*/
@@ -105,7 +104,6 @@ function autocomplete(inp, arr) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
                     window.text = this.getElementsByTagName("input")[0].value;
-
                     /*close the list of autocompleted values,
                      (or any other open lists of autocompleted values:*/
                     closeAllLists();
@@ -170,22 +168,17 @@ function autocomplete(inp, arr) {
             }
         }
     }
-    document.addEventListener("click", function (e) {
-        //document.getElementById("myInput").value=window.valueOfTextField;
-        //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-        closeAllLists(e.target);
-    });
-
-    document.getElementById("form_id").addEventListener("submit", myFunction);
-    function myFunction() {
+    button.addEventListener('click', updateButton);
+    function updateButton() {
         window.valueOfTextField = window.termUrls.get(window.text);
-        if(document.getElementById("myInput").value == ""){
-           alert("search box is empty")
-          }
-        else{
-        document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-        }
-     }
-    
-    
+        if (button.value === 'FindAnswer') {
+            //button.value = 'Answer';
+            document.getElementById("answerTextBox").value = window.valueOfTextField;
+        } /*else {
+         button.value = 'Start machine';
+         paragraph.textContent = 'The machine is stopped.';
+         }*/
+    }
+
 }
+

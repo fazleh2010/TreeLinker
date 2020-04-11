@@ -1,11 +1,10 @@
+const button = document.querySelector('input');
+const paragraph = document.querySelector('answer');
 let arr = Array.from(termUrls.keys());
 window.valueOfTextField = "";
 window.text = "";
 document.getElementById("myInput").style.borderColor = "blue";
- 
 autocomplete(document.getElementById("myInput"), arr);
-
-
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
      the text field element and an array of possible autocompleted values:*/
@@ -42,7 +41,6 @@ function autocomplete(inp, arr) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
                     window.text = this.getElementsByTagName("input")[0].value;
-
                     /*close the list of autocompleted values,
                      (or any other open lists of autocompleted values:*/
                     closeAllLists();
@@ -107,22 +105,16 @@ function autocomplete(inp, arr) {
             }
         }
     }
-    document.addEventListener("click", function (e) {
-        //document.getElementById("myInput").value=window.valueOfTextField;
-        //document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-        closeAllLists(e.target);
-    });
-
-    document.getElementById("form_id").addEventListener("submit", myFunction);
-    function myFunction() {
+    button.addEventListener('click', updateButton);
+    function updateButton() {
         window.valueOfTextField = window.termUrls.get(window.text);
-        if(document.getElementById("myInput").value == ""){
-           alert("search box is empty")
-          }
-        else{
-        document.getElementById('form_id').action = window.location.href = window.valueOfTextField; //Will set it
-        }
-     }
-    
-    
+        if (button.value === 'FindAnswer') {
+            //button.value = 'Answer';
+            document.getElementById("answerTextBox").value = window.valueOfTextField;
+        } /*else {
+         button.value = 'Start machine';
+         paragraph.textContent = 'The machine is stopped.';
+         }*/
+    }
+
 }
