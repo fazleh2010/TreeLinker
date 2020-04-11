@@ -17,7 +17,7 @@ import java.util.Set;
 public interface Constants {
 
     //The file path has to be full for running it in PHP
-    public static String INPUT_LOCATION = "/home/elahi/NetBeansProjects/TreeLinker/src/main/resources";
+    public static String INPUT_LOCATION = "src/main/resources";
     public static String INPUT_JSON = "/qald/8/data/qald-8-test-multilingual.json";
     public static String INPUT_ALL_JSON = "/qald/all/";
     public static String INPUT_CSV = "entityLinking.tsv";
