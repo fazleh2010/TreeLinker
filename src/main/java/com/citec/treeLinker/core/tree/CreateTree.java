@@ -16,7 +16,7 @@ import com.citec.treeLinker.core.input.JsonReader;
 import com.citec.treeLinker.core.input.Question;
 import com.citec.treeLinker.core.input.AnswerURI;
 import com.citec.treeLinker.core.output.AnswerProcessor;
-import com.citec.treeLinker.utils.FileUtils;
+import com.citec.treeLinker.utils.FileRelatedUtils;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -53,14 +53,14 @@ public class CreateTree {
             //currently not working..needs to be check..
             inputFileName = INPUT_LOCATION + File.separator + INPUT_JSON;
             List<Tupple> allInputTupples = new ArrayList<Tupple>();
-            File[] files = FileUtils.getFiles(inputFileName, ".json");
+            File[] files = FileRelatedUtils.getFiles(inputFileName, ".json");
             for (File file : files) {
                  inputTupples = this.getInputTupplesFromJsonFile(inputFileName + file.getName());
                 allInputTupples.addAll(inputTupples);
                 TreeLexicon treeLexicon = createTree(inputTupples);
                 checkResultWhenJsonFile();
             }
-            FileUtils.WriteToFile(allInputTupples, inputFileName + OUTPUT_TEXT);
+            FileRelatedUtils.WriteToFile(allInputTupples, inputFileName + OUTPUT_TEXT);
 
         } else if (inputType.equals(TSV)) {
             inputFileName = INPUT_LOCATION + File.separator + INPUT_CSV;

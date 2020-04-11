@@ -2,7 +2,7 @@ package com.citec.treeLinker.app;
 
 import com.citec.treeLinker.api.Constants;
 import com.citec.treeLinker.core.tree.CreateTree;
-import com.citec.treeLinker.utils.FileUtils;
+import com.citec.treeLinker.utils.FileRelatedUtils;
 import java.io.IOException;
 
 public class Main implements Constants {
@@ -15,7 +15,7 @@ public class Main implements Constants {
         System.out.println("Test..");
 
         CreateTree createTree = new CreateTree(inputType);
-        content = FileUtils.output(createTree.getInputTupples());
+        content = FileRelatedUtils.output(createTree.getInputTupples());
         
          System.out.println(content);
 

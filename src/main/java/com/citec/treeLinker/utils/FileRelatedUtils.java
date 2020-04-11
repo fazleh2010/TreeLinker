@@ -10,10 +10,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,7 +25,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
  *
  * @author elahi
  */
-public class FileUtils {
+public class FileRelatedUtils {
 
     public static void WriteToFile(List<Tupple> inputTupples, String fileName) throws IOException {
         String str = "";
@@ -91,7 +93,7 @@ public class FileUtils {
         }
         stringToFile(str, fileName);
     }
-    
+
     public static String output(List<Tupple> inputTupples) throws IOException {
         String str = "";
         for (Tupple tupple : inputTupples) {
@@ -112,13 +114,54 @@ public class FileUtils {
     private static List<Tupple> getQuestionAnswerList(List<String> questions, List<String> answers) {
         List<Tupple> inputTupples = new ArrayList<Tupple>();
         for (Integer index = 0; index < questions.size(); index++) {
-            String question=questions.get(index);
-            String answer=answers.get(index);
+            String question = questions.get(index);
+            String answer = answers.get(index);
             inputTupples.add(new Tupple(question, answer, "legal"));
-            System.out.println(question+" "+answer+" "+"legal");
+            System.out.println(question + " " + answer + " " + "legal");
         }
-         
+
         return inputTupples;
+    }
+
+    public static void stringToFile_DeleteIf_Exists(String str, String fileName)
+            throws IOException {
+        /*File file = new File(fileName);
+        if (file.exists()) {
+            file.deleteOnExit();
+        }*/
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        writer.write(str);
+        writer.close();
+
+    }
+
+    public static void writeFile(String content, String fileName) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        writer.write(content);
+        writer.close();
+    }
+
+    public static Map<String, String> getHash(String fileName) throws FileNotFoundException, IOException {
+        Map<String, String> hash = new HashMap<String, String>();
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            String line = reader.readLine();
+            while (line != null) {
+
+                // read next line
+                line = reader.readLine();
+                if (line != null) {
+                    String[] info = line.split("=");
+                    hash.put(info[0], info[1]);
+                }
+
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return hash;
     }
 
 }
