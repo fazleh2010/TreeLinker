@@ -14,15 +14,10 @@ Input
 The Input file is a .rdf file that contains sparql queries. An example of input file is as follow:
 
 
-
-
-Output
-------------
-Output is automatically generated an auto complition question answering system. 
-```
-
 How To Run 
 ------------
+
+```
 
 git clone <repo> 
 
@@ -33,6 +28,12 @@ mvn clean package
 Run the application
 
 java -jar <generated jar> <input file>
+
+Output
+------------
+
+```
+Output is automatically generated an auto complition question answering system. 
 
 Then go to localhost
 http://localhost:8080/
