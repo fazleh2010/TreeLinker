@@ -21,23 +21,22 @@ Output
 Output is automatically generated an auto complition question answering system. 
 ```
 
-
 How To Run 
 ------------
 
 git clone <repo> 
 
-```
+
 mvn clean package
-```
+
 
 Run the application
-```
+
 java -jar <generated jar> <input file>
 
-Then go to 
+Then go to localhost
 http://localhost:8080/
-```
+
 
 ## Note
 No additional library (I.e. Apache Tika) is used to detect file type or mime type. 
